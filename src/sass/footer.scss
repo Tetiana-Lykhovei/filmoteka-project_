@@ -1,0 +1,127 @@
+.footer_section {
+  background-color: $primary-white-color;
+}
+
+.footer_container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  color: $footer-text-color;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $primary-white-color;
+}
+
+@media (min-width: 320px) {
+  .footer_container {
+    display: block;
+    height: 150px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    text-align: center;
+    height: 77px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    // text-align: center;
+    height: 77px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+}
+
+.text {
+  margin-top: 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+// link styles
+// .link {
+//   color: #545454;
+//   margin-left: 3px;
+// }
+
+@media (min-width: 320px) {
+  .text {
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .text {
+    display: inline;
+  }
+}
+
+@media (min-width: 1200px) {
+  .text {
+    display: inline;
+  }
+}
+
+.icon_vector {
+  width: 30px;
+  height: 30px;
+  margin-left: 50px;
+  margin-right: 10px;
+}
+
+.button_footer {
+  background: transparent;
+  outline: none;
+  border: none;
+
+  border-bottom: 0.5px solid $footer-text-color;
+  color: $footer-text-color;
+  cursor: pointer;
+}
+
+.teamProject {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  border-color: transparent;
+  color: $footer-text-color;
+  background-color: $primary-white-color;
+  outline-style: none;
+}
+.teamProject:hover {
+  color: $accent-color;
+}
+
+.social-icon {
+  fill: $footer-text-color;
+}
+.social-media-list {
+  display: flex;
+  margin: 0;
+}
+.social-media-item {
+  margin-right: 5px;
+  list-style: none;
+  padding: 10px;
+}
+
+.social-icon:hover {
+  fill: $accent-color;
+}
