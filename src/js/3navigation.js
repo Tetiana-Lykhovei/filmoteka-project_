@@ -1,15 +1,17 @@
-console.log("Hello from 3navigation");
-const modalCard = document.querySelector(".modalCard");
-const backDropRef = document.querySelector(".js-modal");
-const overlayRef = document.querySelector(".overlay");
+console.log('Hello from 3navigation');
+const modalCard = document.querySelector('.modalCard');
+const backDropRef = document.querySelector('.js-modal');
+const overlayRef = document.querySelector('.overlay');
+const body = document.querySelector('body');
 
 function activeDetailsPage(movie) {
-  backDropRef.classList.add("is-open");
+  backDropRef.classList.add('is-open');
+  body.classList.add('overflow-ishidden');
   showDetails(movie);
-  window.addEventListener("keydown", onPressEscape);
-  overlayRef.addEventListener("click", onBackDropClick);
-  initModalDialogButton(moviesWatchedKeyName, "btnModal-watched-js", movie);
-  initModalDialogButton(moviesQueuedKeyName, "btnModal-queue-js", movie);
+  window.addEventListener('keydown', onPressEscape);
+  overlayRef.addEventListener('click', onBackDropClick);
+  initModalDialogButton(moviesWatchedKeyName, 'btnModal-watched-js', movie);
+  initModalDialogButton(moviesQueuedKeyName, 'btnModal-queue-js', movie);
 }
 
 function showDetails({
@@ -63,16 +65,17 @@ function showDetails({
 
 </>`;
 
-  modalCard.insertAdjacentHTML("afterbegin", modalCardinfo);
+  modalCard.insertAdjacentHTML('afterbegin', modalCardinfo);
 }
 
 //===========================================================================================================
 
 function onCloseModal() {
-  window.removeEventListener("keydown", onPressEscape);
-  backDropRef.classList.remove("is-open");
-  modalCard.innerHTML = "";
-  body.classList.remove("overflow-ishidden");
+  window.removeEventListener('keydown', onPressEscape);
+  backDropRef.classList.remove('is-open');
+  body.classList.remove('overflow-ishidden');
+  modalCard.innerHTML = '';
+  body.classList.remove('overflow-ishidden');
 }
 
 function onBackDropClick(event) {
@@ -82,24 +85,24 @@ function onBackDropClick(event) {
 }
 
 function onPressEscape(event) {
-  if (event.code === "Escape") {
+  if (event.code === 'Escape') {
     onCloseModal();
   }
 }
 
 function genreStringModal(genre) {
   if (genre.length === 0) {
-    return "Other";
+    return 'Other';
   }
   return genre
     .reduce((acc, el) => {
       return (
         acc +
-        (genres.find((elem) => {
+        (genres.find(elem => {
           return elem.id === el;
-        }).name || "Other") +
-        ", "
+        }).name || 'Other') +
+        ', '
       );
-    }, "")
+    }, '')
     .slice(0, -2);
 }

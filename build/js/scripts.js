@@ -436,18 +436,20 @@ function scroll() {
 }
 "use strict";
 
-console.log("Hello from 3navigation");
-var modalCard = document.querySelector(".modalCard");
-var backDropRef = document.querySelector(".js-modal");
-var overlayRef = document.querySelector(".overlay");
+console.log('Hello from 3navigation');
+var modalCard = document.querySelector('.modalCard');
+var backDropRef = document.querySelector('.js-modal');
+var overlayRef = document.querySelector('.overlay');
+var body = document.querySelector('body');
 
 function activeDetailsPage(movie) {
-  backDropRef.classList.add("is-open");
+  backDropRef.classList.add('is-open');
+  body.classList.add('overflow-ishidden');
   showDetails(movie);
-  window.addEventListener("keydown", onPressEscape);
-  overlayRef.addEventListener("click", onBackDropClick);
-  initModalDialogButton(moviesWatchedKeyName, "btnModal-watched-js", movie);
-  initModalDialogButton(moviesQueuedKeyName, "btnModal-queue-js", movie);
+  window.addEventListener('keydown', onPressEscape);
+  overlayRef.addEventListener('click', onBackDropClick);
+  initModalDialogButton(moviesWatchedKeyName, 'btnModal-watched-js', movie);
+  initModalDialogButton(moviesQueuedKeyName, 'btnModal-queue-js', movie);
 }
 
 function showDetails(_ref) {
@@ -461,15 +463,16 @@ function showDetails(_ref) {
       description = _ref.overview,
       movieId = _ref.id;
   var modalCardinfo = "<img class=\"modalImg\"\n                    src='".concat(basicPosterUrl).concat(imgPath, "'\n                    alt=").concat(filmTitle, "\n                    />\n                    <div class=\"description\">\n        <h2 class=\"modal_title\">").concat(filmTitle, "</h2>\n        <table>\n<tr>\n  <td class=\"definition\">Vote/Votes</td>\n  <td class=\"definition info\"><span class=\"rating-modal\">").concat(voteAverage, "</span> / ").concat(voteCount, "</td>\n  </tr>\n<tr>\n  <td class=\"definition\">Popularity</td>\n  <td class=\"definition info\">").concat(popularity, "</td>\n</tr>\n<tr>\n  <td class=\"definition\">Original Title</td>\n  <td class=\"definition info originalTitle\">").concat(originalTitle, "</td>\n</tr>\n<tr>\n  <td class=\"definition\">Genre</td>\n  <td class=\"definition info\">").concat(genreStringModal(genre), "</td>\n</tr>\n</table>\n<h2 class=\"about\">ABOUT</h2>\n<p class=\"overview\">").concat(description, "</p>\n<button id=\"btnModal-watched-js\"\n        data-id=").concat(movieId, "\n        class=\"btn-modal\">\n  ").concat(getButtonTitle(moviesWatchedKeyName, movieId), "\n</button>\n\n<button id=\"btnModal-queue-js\"\n        class=\"btn-modal\"\n        data-id=").concat(movieId, ">\n  ").concat(getButtonTitle(moviesQueuedKeyName, movieId), "\n</button>\n\n</>");
-  modalCard.insertAdjacentHTML("afterbegin", modalCardinfo);
+  modalCard.insertAdjacentHTML('afterbegin', modalCardinfo);
 } //===========================================================================================================
 
 
 function onCloseModal() {
-  window.removeEventListener("keydown", onPressEscape);
-  backDropRef.classList.remove("is-open");
-  modalCard.innerHTML = "";
-  body.classList.remove("overflow-ishidden");
+  window.removeEventListener('keydown', onPressEscape);
+  backDropRef.classList.remove('is-open');
+  body.classList.remove('overflow-ishidden');
+  modalCard.innerHTML = '';
+  body.classList.remove('overflow-ishidden');
 }
 
 function onBackDropClick(event) {
@@ -479,21 +482,21 @@ function onBackDropClick(event) {
 }
 
 function onPressEscape(event) {
-  if (event.code === "Escape") {
+  if (event.code === 'Escape') {
     onCloseModal();
   }
 }
 
 function genreStringModal(genre) {
   if (genre.length === 0) {
-    return "Other";
+    return 'Other';
   }
 
   return genre.reduce(function (acc, el) {
     return acc + (genres.find(function (elem) {
       return elem.id === el;
-    }).name || "Other") + ", ";
-  }, "").slice(0, -2);
+    }).name || 'Other') + ', ';
+  }, '').slice(0, -2);
 }
 "use strict";
 

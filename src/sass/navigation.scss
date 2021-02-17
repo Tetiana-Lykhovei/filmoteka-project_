@@ -167,7 +167,6 @@
   position: fixed;
   top: 0;
   right: 0;
-
   width: 100vw;
   height: 100vh;
   opacity: 0;
@@ -176,8 +175,9 @@
 }
 .js-modal.is-open {
   opacity: 1;
-  pointer-events: initial;
+  pointer-events: auto;
   z-index: 500;
+  overflow: auto;
 
   .overlay {
     position: absolute;
@@ -341,21 +341,6 @@ td {
 .btn-modal:hover {
   transform: scale(1.1);
 }
-// .btn-modal-isListed {
-//   background-color: $accent-color;
-//   border: 1px solid $accent-color;
-//   color: #fff;
-//   width: 136px;
-//   height: 44px;
-//   left: 678px;
-//   top: 642px;
-//   box-sizing: border-box;
-//   border-radius: 5px;
-//   margin-right: 20px;
-//   font-family: Roboto;
-//   font-style: normal;
-//   font-size: 12px;
-//   line-height: 1.33;
-//   outline: none;
-//   cursor: pointer;
-// }
+.overflow-ishidden {
+  overflow: hidden;
+}
