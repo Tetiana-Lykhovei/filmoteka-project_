@@ -2,27 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>team-project-js-filmoteka</title>
     <!-- Сюда будет всталена ссылка на файл стилей -->
     <!-- inject:css -->
+    <link rel="stylesheet" href="css/styles.css">
     <!-- endinject -->
     <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
+    <script src = " https://code.jquery.com/jquery-3.5.1.min.js "></script >
   </head>
+
   <body>
+    
+    
     <header>
       <section class="header_section" id="homeHeader">
         <div class="container header-container">
           <div>
             <nav class="navigation">
               <div>
-                <a href="../index.html" class="logo"
-                  ><img src="./images/film.svg" alt="Logo" class="img-logo" />
-                  <span class="span_logo">Filmoteka</span></a
-                >
+                <a href="../index.html" class="logo">
+                  <img src="./images/film.svg" alt="Logo" class="img-logo" />
+                  <span class="span_logo">Filmoteka</span>
+                </a>
               </div>
               <ul class="header_link list">
                 <li class="header_item head">
@@ -54,24 +58,24 @@
           <p id="js-error" class="error"></p>
         </div>
       </section>
-      <section
-        class="header_section_library visually-hidden"
-        id="libraryHeader"
-      >
+    
+      <section class="header_section_library visually-hidden" id="libraryHeader">
         <div class="container header-container">
           <div>
             <nav class="navigation">
               <div>
-                <a href="../index.html" class="logo"
-                  ><img src="./images/film.svg" alt="Logo" class="img-logo" />
-                  <span class="span_logo">Filmoteka</span></a
-                >
+                <a href="../index.html" class="logo">
+                  <img src="./images/film.svg" alt="Logo" class="img-logo" />
+                  <span class="span_logo">Filmoteka</span>
+                </a>
               </div>
+    
               <div>
                 <ul class="header_link list">
                   <li id="galleryHomeLink" class="header_item head">
                     <a href="#" class="header_li">HOME</a>
                   </li>
+    
                   <li class="header_item">
                     <a href="#" class="header_li current">MY LIBRARY</a>
                   </li>
@@ -80,6 +84,7 @@
               </div>
             </nav>
           </div>
+    
           <div class="flex_button">
             <button class="button button-watched">WATCHED</button>
             <button class="button button-queue">QUEUE</button>
@@ -87,10 +92,15 @@
         </div>
       </section>
     </header>
+    
+    
     <section class="section" id="home-section">
-      <div class="loader-container"><div class="loader"></div></div>
+      <div class="loader-container">
+        <div class="loader"></div>
+      </div>
       <div class="container">
         <ul class="galleryHome list"></ul>
+    
         <div class="paginationContainer">
           <button id="js-backBtn" class="backBtn">back</button>
           <div id="js-currentPageNumber" class="currentPageNumber">1</div>
@@ -98,6 +108,7 @@
         </div>
       </div>
     </section>
+    
     <!--Theme switch-->
     <div class="toolbar">
       <!-- Разметка переключателя темы -->
@@ -105,6 +116,7 @@
         <svg class="theme-switch__icon" role="img" aria-label="Иконка солнца">
           <use href="./images/sprite2.svg#sun"></use>
         </svg>
+    
         <div class="theme-switch__control">
           <input
             class="theme-switch__toggle"
@@ -117,9 +129,11 @@
             aria-hidden="true"
             class="theme-switch__track"
             for="theme-switch-toggle"
-          ></label>
+          >
+          </label>
           <div aria-hidden="true" class="theme-switch__marker"></div>
         </div>
+    
         <svg class="theme-switch__icon" aria-label="Иконка луны">
           <use href="./images/sprite2.svg#moon"></use>
         </svg>
@@ -128,14 +142,18 @@
     <!--Film modal-->
     <section class="js-modal">
       <div class="overlay" id="overlay-modal"></div>
-      <div class="container modalCard"><div></div></div>
+      <div class="container modalCard">
+        <div></div>
+      </div>
     </section>
+    
     <!--Authorization modal-->
     <div class="modalAuth" id="js_modalAuth">
       <div class="overlay__modalAuth" id="overlay__modalAuth"></div>
       <div class="container container__modalAuth">
         <form action="" class="container__modalAuth__form">
           <h3 class="container__modalAuth__form__title">Filmoteka</h3>
+    
           <input
             class="container__modalAuth__form__email"
             name="email"
@@ -158,11 +176,14 @@
             <button type="submit" class="container__modalAuth__btn exit">
               Sign out
             </button>
-            <div><p class="auth__text visually-hidden"></p></div>
+            <div>
+              <p class="auth__text visually-hidden"></p>
+            </div>
           </div>
         </form>
       </div>
     </div>
+    
     <!--Home page scroll up-->
     <button class="btn-scroll">
       <img
@@ -173,22 +194,27 @@
       />
     </button>
     <section class="section visually-hidden" id="library-section">
-      <div class="container"><ul class="galleryLibrary list"></ul></div>
+      <div class="container">
+        <ul class="galleryLibrary list"></ul>
+      </div>
     </section>
     <footer>
       <section class="footer_section">
         <div class="footer_container">
           <p class="text">&copy; 2021 | All Rights Reserved |</p>
+    
           <p class="text">
             Developed by GoIT Students (
             <a
               href="https://maksimlisovoi.github.io/team-project-js-filmoteka/index.html"
               target="_blank"
               style="text-decoration: none"
-              ><button class="teamProject">Group #6, Course #25</button></a
+            >
+              <button class="teamProject">Group #6, Course #25</button></a
             >) |
           </p>
           <p class="text">Updated by Tetiana Lykhovei</p>
+    
           <ul class="social-media-list">
             <li class="social-media-item">
               <a
@@ -196,19 +222,24 @@
                 class="social-icons-link"
                 aria-label="facebook"
                 target="_blank"
-                ><svg class="social-icon" width="20" height="20">
-                  <use href="./images/symbol-defs.svg#facebook"></use></svg
-              ></a>
+              >
+                <svg class="social-icon" width="20" height="20">
+                  <use href="./images/symbol-defs.svg#facebook"></use>
+                </svg>
+              </a>
             </li>
+    
             <li class="social-media-item">
               <a
                 href="https://www.instagram.com/li_ta_va/"
                 class="social-icons-link"
                 aria-label="instagram"
                 target="_blank"
-                ><svg class="social-icon" width="20" height="20">
-                  <use href="./images/symbol-defs.svg#instagram"></use></svg
-              ></a>
+              >
+                <svg class="social-icon" width="20" height="20">
+                  <use href="./images/symbol-defs.svg#instagram"></use>
+                </svg>
+              </a>
             </li>
             <li class="social-media-item">
               <a
@@ -216,14 +247,22 @@
                 class="social-icons-link"
                 aria-label="linkedin"
                 target="_blank"
-                ><svg class="social-icon" width="20" height="20">
-                  <use href="./images/symbol-defs.svg#linkedin"></use></svg
-              ></a>
+              >
+                <svg class="social-icon" width="20" height="20">
+                  <use href="./images/symbol-defs.svg#linkedin"></use>
+                </svg>
+              </a>
             </li>
           </ul>
         </div>
       </section>
     </footer>
-    <!-- Сюда будет всталена ссылка на файл скриптов --><!-- inject:js --><!-- endinject -->
+    <!-- Сюда будет всталена ссылка на файл скриптов -->
+    <!-- inject:js -->
+    
+    <script src="js/scripts.js"></script>
+    
+    <!-- endinject -->
+ 
   </body>
 </html>
