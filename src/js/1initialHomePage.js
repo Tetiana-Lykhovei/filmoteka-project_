@@ -1,65 +1,69 @@
-("use strict");
+('use strict');
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDYFDsGasHWWG9JVZMqavo8otHQIfri16c",
-  authDomain: "team-project-js-filmoteka.firebaseapp.com",
-  projectId: "team-project-js-filmoteka",
-  storageBucket: "team-project-js-filmoteka.appspot.com",
-  messagingSenderId: "378351083417",
-  appId: "1:378351083417:web:43f8e90e12a94511ff3d08",
+  apiKey: 'AIzaSyDYFDsGasHWWG9JVZMqavo8otHQIfri16c',
+  authDomain: 'team-project-js-filmoteka.firebaseapp.com',
+  projectId: 'team-project-js-filmoteka',
+  storageBucket: 'team-project-js-filmoteka.appspot.com',
+  messagingSenderId: '378351083417',
+  appId: '1:378351083417:web:43f8e90e12a94511ff3d08',
 };
 
 firebase.initializeApp(firebaseConfig);
 
-const posterUrl = "https://image.tmdb.org/t/p";
-const sizePoster = "/w500";
+const posterUrl = 'https://image.tmdb.org/t/p';
+const sizePoster = '/w500';
 const basicPosterUrl = posterUrl + sizePoster;
-const BASE_URL = "https://api.themoviedb.org/3/search/movie";
-const API_KEY = "d407875648143dbc537f3d16fab2b882";
-const MEDIA_TYPE = "movie";
-const TIME_WINDOW = "week";
+const BASE_URL = 'https://api.themoviedb.org/3/search/movie';
+const API_KEY = 'd407875648143dbc537f3d16fab2b882';
+const MEDIA_TYPE = 'movie';
+const TIME_WINDOW = 'week';
 let pageNumber = 1;
-const inputValue = "";
+const inputValue = '';
 let renderFilms = [];
 let genres = [];
-let currentPageNumber = document.getElementById("js-currentPageNumber");
-const list = document.querySelector(".galleryHome");
-const homeSection = document.querySelector("#home-section");
-const librarySection = document.querySelector("#library-section");
-const homeHeader = document.getElementById("homeHeader");
-const libaryHeader = document.getElementById("libraryHeader");
-const libraryLink = document.getElementById("libraryLink");
-const galleryHomeLink = document.getElementById("galleryHomeLink");
-const homeLink = document.getElementById("homeLink");
+let currentPageNumber = document.getElementById('js-currentPageNumber');
+const list = document.querySelector('.galleryHome');
+const homeSection = document.querySelector('#home-section');
+const librarySection = document.querySelector('#library-section');
+const homeHeader = document.getElementById('homeHeader');
+const libaryHeader = document.getElementById('libraryHeader');
+const libraryLink = document.getElementById('libraryLink');
+const galleryHomeLink = document.getElementById('galleryHomeLink');
+const homeLink = document.getElementById('homeLink');
 const refs = {
-  searchForms: document.getElementById("js-search-form"),
-  backBtn: document.getElementById("js-backBtn"),
-  nextBtn: document.getElementById("js-nextBtn"),
-  error: document.getElementById("js-error"),
+  searchForms: document.getElementById('js-search-form'),
+  backBtn: document.getElementById('js-backBtn'),
+  nextBtn: document.getElementById('js-nextBtn'),
+  error: document.getElementById('js-error'),
 };
 let loggedIn = false;
 const userGrantedButtons = [
-  document.querySelector(".button-queue"),
-  document.querySelector(".button-watched"),
+  document.querySelector('.button-queue'),
+  document.querySelector('.button-watched'),
 ];
 console.log(userGrantedButtons);
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(user => {
   if (user) {
     console.log(user);
-    const userName =
-      user.email.length > 10 ? user.email.slice(0, 7) + "..." : user.email;
-    btnAuth.textContent = userName;
-    btnAuthLibrary.textContent = userName;
+    btnAuth.textContent = 'You are in';
+    btnAuthLibrary.textContent = 'You are in';
+    btnRegister.classList.add('colored');
+    btnRegister.textContent = 'Signed';
+    btnIn.classList.add('visually-hidden');
     loggedIn = true;
-    userGrantedButtons.map((el) => {
-      el.classList.remove("visually-hidden");
+    userGrantedButtons.map(el => {
+      el.classList.remove('visually-hidden');
     });
   } else {
-    btnAuth.textContent = "Sign in";
-    btnAuthLibrary.textContent = "Sign in";
+    btnAuth.textContent = 'Sign in';
+    btnAuthLibrary.textContent = 'Sign in';
+    btnRegister.textContent = 'Sign in';
+    btnRegister.classList.remove('colored');
+    btnIn.classList.remove('visually-hidden');
     loggedIn = false;
-    userGrantedButtons.map((el) => {
-      el.classList.add("visually-hidden");
+    userGrantedButtons.map(el => {
+      el.classList.add('visually-hidden');
     });
   }
 });
@@ -67,15 +71,15 @@ fetchGenres();
 
 onHomelink();
 
-homeLink.addEventListener("click", onHomelink);
-galleryHomeLink.addEventListener("click", onHomelink);
+homeLink.addEventListener('click', onHomelink);
+galleryHomeLink.addEventListener('click', onHomelink);
 
 function fetchGenres() {
   return fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`,
   )
-    .then((res) => res.json())
-    .then((result) => {
+    .then(res => res.json())
+    .then(result => {
       genres = result.genres;
       return result.genres;
     });
@@ -85,40 +89,40 @@ function fetchPopularMoviesList() {
   let url = `https://api.themoviedb.org/3/trending/${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${API_KEY}&page=${pageNumber}`;
 
   return fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
+    .then(res => res.json())
+    .then(data => {
       renderFilms = data.results;
 
       let totalPages = data.total_pages;
 
       if (pageNumber >= totalPages) {
-        refs.nextBtn.classList.add("btnIsHidden");
+        refs.nextBtn.classList.add('btnIsHidden');
       } else {
-        refs.nextBtn.classList.remove("btnIsHidden");
+        refs.nextBtn.classList.remove('btnIsHidden');
       }
-      list.innerHTML = "";
+      list.innerHTML = '';
       const cardsFragment = document.createDocumentFragment();
 
-      renderFilms.map((el) => {
+      renderFilms.map(el => {
         cardsFragment.appendChild(createCardFunc(el));
       });
       list.appendChild(cardsFragment);
       return data;
     })
-    .then((data) => {
+    .then(data => {
       // getFilm(data);
       //console.log(data);
     })
-    .catch((error) => {
+    .catch(error => {
       errorPlug();
-      refs.nextBtn.classList.add("btnIsHidden");
+      refs.nextBtn.classList.add('btnIsHidden');
     });
 }
 
 function createCardFunc(movie) {
   const listItem = cardTemplate(movie);
 
-  listItem.addEventListener("click", () => {
+  listItem.addEventListener('click', () => {
     activeDetailsPage(movie);
   });
   return listItem;
@@ -132,9 +136,9 @@ function cardTemplate({
   release_date: date,
   vote_average: voteAverage,
 }) {
-  const result = document.createElement("li");
-  result.classList.add("gallery__item");
-  let poster = "../images/noPoster.jpg";
+  const result = document.createElement('li');
+  result.classList.add('gallery__item');
+  let poster = '../images/noPoster.jpg';
   if (imgPath) {
     poster = basicPosterUrl + imgPath;
   }
@@ -163,34 +167,34 @@ function cardTemplate({
   temp += `<span class="gallery__item__description__rating">
             ${voteAverage}</span>
             </p>  </div>`;
-  result.insertAdjacentHTML("afterbegin", temp);
+  result.insertAdjacentHTML('afterbegin', temp);
   return result;
 }
 
 function genreString(genre) {
   if (genre.length === 0) {
-    return "Other";
+    return 'Other';
   }
 
   let genreFilter = genre
     .slice(0, 3)
     .reduce((acc, el, index) => {
       if (index === 2 && genre.length > 3) {
-        return acc + "Other" + ", ";
+        return acc + 'Other' + ', ';
       }
       return (
         acc +
-        (genres.find((elem) => {
+        (genres.find(elem => {
           return elem.id === el;
-        }).name || "Other") +
-        ", "
+        }).name || 'Other') +
+        ', '
       );
-    }, "")
+    }, '')
     .slice(0, -2);
 
   if (genreFilter.length > 30) {
-    let genreFilterMini = genreFilter.split(",");
-    genreFilterMini.splice(2, 1, "Other");
+    let genreFilterMini = genreFilter.split(',');
+    genreFilterMini.splice(2, 1, 'Other');
     return genreFilterMini;
   }
 
@@ -201,7 +205,7 @@ function errorPlug() {
  <p>Что-то пошло не так! Повторите запрос на сервер</p>
  <img src="../images/noPoster.jpg"alt="Ошибка">
  </div>`;
-  list.insertAdjacentHTML("afterbegin", error);
+  list.insertAdjacentHTML('afterbegin', error);
 }
 function startFetch() {
   resetPage();
@@ -210,65 +214,65 @@ function startFetch() {
 
 //authorization
 
-const formAuth = document.querySelector(".container__modalAuth__form");
-const inputEmail = document.querySelector(".container__modalAuth__form__email");
+const formAuth = document.querySelector('.container__modalAuth__form');
+const inputEmail = document.querySelector('.container__modalAuth__form__email');
 const inputRassword = document.querySelector(
-  ".container__modalAuth__form__password",
+  '.container__modalAuth__form__password',
 );
-const btnAuth = document.querySelector(".btnAuth");
-const btnAuthLibrary = document.querySelector(".btnAuthLibrary");
+const btnAuth = document.querySelector('.btnAuth');
+const btnAuthLibrary = document.querySelector('.btnAuthLibrary');
 
-const btnIn = document.querySelector(".in");
-const btnRegister = document.querySelector(".register");
-const btnExit = document.querySelector(".exit");
+const btnIn = document.querySelector('.in');
+const btnRegister = document.querySelector('.register');
+const btnExit = document.querySelector('.exit');
 
 // const btnEnter = document.querySelector('.enter');
-const modalAuth = document.getElementById("js_modalAuth");
-const overlayAuth = document.getElementById("overlay__modalAuth");
-const authError = document.querySelector(".auth__text");
+const modalAuth = document.getElementById('js_modalAuth');
+const overlayAuth = document.getElementById('overlay__modalAuth');
+const authError = document.querySelector('.auth__text');
 
-btnAuth.addEventListener("click", onOpenModalAuth);
-btnAuthLibrary.addEventListener("click", onOpenModalAuth);
+btnAuth.addEventListener('click', onOpenModalAuth);
+btnAuthLibrary.addEventListener('click', onOpenModalAuth);
 
 //кнопка вход
-btnIn.addEventListener("click", (event) => {
+btnIn.addEventListener('click', event => {
   event.preventDefault();
-  authError.textContent = "";
+  authError.textContent = '';
   signInWithEmailPassword();
 });
 
 //кнопка регистрации
-btnRegister.addEventListener("click", (event) => {
+btnRegister.addEventListener('click', event => {
   event.preventDefault();
-  authError.textContent = "";
-  signUpWithEmailPasswoerd();
+  authError.textContent = '';
+  signUpWithEmailPassword();
 });
 
 //кнопка выход
-btnExit.addEventListener("click", (event) => {
+btnExit.addEventListener('click', event => {
   event.preventDefault();
-  authError.textContent = "";
+  authError.textContent = '';
   signOut();
 });
 
 //ф-ция регистрация
 
-function signUpWithEmailPasswoerd() {
+function signUpWithEmailPassword() {
   var email = inputEmail.value;
   var password = inputRassword.value;
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      authError.classList.add("visually-hidden");
+    .then(userCredential => {
+      authError.classList.add('visually-hidden');
       var user = userCredential.user;
       console.log(user);
     })
-    .catch((error) => {
+    .catch(error => {
       var errorCode = error.code;
       var errorMessage = error.message;
       authError.textContent = errorMessage;
-      authError.classList.remove("visually-hidden");
+      authError.classList.remove('visually-hidden');
     });
 }
 
@@ -281,21 +285,21 @@ function signInWithEmailPassword() {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
+    .then(userCredential => {
       var user = userCredential.user;
-      authError.classList.add("visually-hidden");
-      console.log(email, "email есть в базе");
-      authError.textContent = "registration completed successfully";
-      authError.classList.remove("visually-hidden");
+      authError.classList.add('visually-hidden');
+      console.log(email, 'email есть в базе');
+      authError.textContent = 'registration completed successfully';
+      authError.classList.remove('visually-hidden');
       loggedIn = true;
       onCloseModalAuth();
     })
-    .catch((error) => {
+    .catch(error => {
       var errorCode = error.code;
       var errorMessage = error.message;
       authError.textContent = errorMessage;
-      authError.classList.remove("visually-hidden");
-      console.log(email, "email нету в базе ,нужно зарегаться");
+      authError.classList.remove('visually-hidden');
+      console.log(email, 'email нету в базе ,нужно зарегаться');
     });
   // [END auth_signin_password]
 }
@@ -312,17 +316,17 @@ function signOut() {
 
       // Sign-out successful.
     })
-    .catch((error) => {
-      authError.classList.remove("visually-hidden");
+    .catch(error => {
+      authError.classList.remove('visually-hidden');
     });
 }
 
 function onCloseModalAuth() {
-  window.removeEventListener("keydown", onPressEscapeAuth);
-  modalAuth.classList.remove("is-open");
-  modalCard.innerHTML = "";
-  authError.textContent = "";
-  authError.classList.add("visually-hidden");
+  window.removeEventListener('keydown', onPressEscapeAuth);
+  modalAuth.classList.remove('is-open');
+  modalCard.innerHTML = '';
+  authError.textContent = '';
+  authError.classList.add('visually-hidden');
 
   startFetch();
   renderAuthCheckLibrary();
@@ -334,51 +338,51 @@ function onBackDropClickAuth(event) {
   }
 }
 function onPressEscapeAuth(event) {
-  if (event.code === "Escape") {
+  if (event.code === 'Escape') {
     onCloseModalAuth();
   }
 }
 function onOpenModalAuth() {
-  modalAuth.classList.add("is-open");
-  window.addEventListener("keydown", onPressEscapeAuth);
+  modalAuth.classList.add('is-open');
+  window.addEventListener('keydown', onPressEscapeAuth);
 
-  overlayAuth.addEventListener("click", onBackDropClickAuth);
+  overlayAuth.addEventListener('click', onBackDropClickAuth);
 }
 function onHomelink() {
-  homeHeader.classList.remove("visually-hidden");
-  homeSection.classList.remove("visually-hidden");
-  librarySection.classList.add("visually-hidden");
-  libaryHeader.classList.add("visually-hidden");
+  homeHeader.classList.remove('visually-hidden');
+  homeSection.classList.remove('visually-hidden');
+  librarySection.classList.add('visually-hidden');
+  libaryHeader.classList.add('visually-hidden');
 
-  libraryLink.classList.remove("current");
-  homeLink.classList.add("current");
+  libraryLink.classList.remove('current');
+  homeLink.classList.add('current');
   startFetch();
 }
 
 //////////////
-const btnTop = document.querySelector(".btn-scroll");
-btnTop.addEventListener("click", () => {
+const btnTop = document.querySelector('.btn-scroll');
+btnTop.addEventListener('click', () => {
   scrollToTop();
 });
 
 function scrollToTop() {
   window.scrollTo({
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 }
 
 ///////
-const body = document.querySelector("body");
-const toggle = document.querySelector(".theme-switch__toggle");
-const storageKey = "theme";
+const body = document.querySelector('body');
+const toggle = document.querySelector('.theme-switch__toggle');
+const storageKey = 'theme';
 const localStorageGetValue = localStorage.getItem(storageKey);
 const Theme = {
-  LIGHT: "light-theme",
-  DARK: "dark-theme",
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
 };
 
-toggle.addEventListener("change", getCheckedValue);
+toggle.addEventListener('change', getCheckedValue);
 
 function getCheckedValue() {
   if (toggle.checked === true) {
